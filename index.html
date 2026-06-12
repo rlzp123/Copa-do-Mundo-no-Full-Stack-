@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MERCADO DA COPA</title>
+    <link rel="icon" type="image/x-icon" href="./img-logos-jogadores/logo_fifa.png">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=BBH+Bogle&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
+        /* Reseta as margens padrão da página */
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+
+        /* O contêiner que segura o vídeo e o texto */
+        .hero-section {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            /* Ocupa 100% da altura da tela */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            /* Esconde qualquer parte do vídeo que vaze da tela */
+        }
+
+        /* Estilização do Vídeo */
+        .bg-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Faz o vídeo preencher todo o espaço sem distorcer */
+            z-index: -1;
+            /* Joga o vídeo para trás de tudo */
+        }
+
+        /* Estilização do Conteúdo (Texto) */
+        .conteudo {
+            position: relative;
+            z-index: 1;
+            /* Garante que o texto fique por cima do vídeo */
+            color: white;
+            /* Cor do texto para contrastar com vídeos escuros */
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Fundo semi-transparente para facilitar a leitura (opcional) */
+            padding: 40px;
+            border-radius: 10px;
+        }
+
+        :root {
+            --vought-blue: #002d5a;
+            --vought-red: #d32f2f;
+            --vought-gold: #ffc107;
+            --dark-bg: #0a0a0a;
+            font-family: "BBH Bogle", sans-serif;
+        }
+
+        /* --- CURSOR CAMISA DO NEYMAR REALISTA (ESTÁTICA) -> ANIMADA NO HOVER/CLIQUE --- */
+        body {
+            /* Camisa do Neymar 10 (Visão das Costas) - Hotspot de clique no colarinho (24 10) */
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><path d="M18,10 Q24,14 30,10 L41,14 L38,22 L33,20 L33,43 L15,43 L15,20 L10,22 L7,14 Z" fill="%23ffdc02" stroke="%23111111" stroke-width="0.8"/><path d="M18,10 Q24,14 30,10" fill="none" stroke="%23009c3b" stroke-width="2.5"/><path d="M41,14 L38,22 M7,14 L10,22" stroke="%23009c3b" stroke-width="2"/><text x="24" y="21" font-family="Arial, sans-serif" font-size="4" font-weight="900" fill="%23002277" text-anchor="middle" letter-spacing="0.5">NEYMAR JR</text><text x="24" y="36" font-family="Arial Black, sans-serif" font-size="14" font-weight="900" fill="%23002277" text-anchor="middle">10</text><circle cx="20" cy="7" r="0.6" fill="%23009c3b"/><circle cx="22" cy="6" r="0.6" fill="%23009c3b"/><circle cx="24" cy="5.5" r="0.6" fill="%23009c3b"/><circle cx="26" cy="6" r="0.6" fill="%23009c3b"/><circle cx="28" cy="7" r="0.6" fill="%23009c3b"/></svg>') 24 10, auto !important;
+        }
+
+        button,
+        a,
+        .btn,
+        .profile-btn,
+        .meme-card:hover,
+        .target-card:hover,
+        .toggle-link,
+        button:active,
+        a:active,
+        .btn:active {
+            /* Camisa do Neymar com Animação de Ginga (Sway) + Aura de Energia Pulsante */
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="26" r="14" fill="%23009c3b" opacity="0.4"><animate attributeName="r" values="12;18;12" dur="0.8s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.5;0;0.5" dur="0.8s" repeatCount="indefinite"/></circle><g><animateTransform attributeName="transform" type="rotate" values="-8 24 24; 8 24 24; -8 24 24" dur="0.6s" repeatCount="indefinite"/><path d="M18,10 Q24,14 30,10 L41,14 L38,22 L33,20 L33,43 L15,43 L15,20 L10,22 L7,14 Z" fill="%23ffdc02" stroke="%23111111" stroke-width="0.8"/><path d="M18,10 Q24,14 30,10" fill="none" stroke="%23009c3b" stroke-width="2.5"/><path d="M41,14 L38,22 M7,14 L10,22" stroke="%23009c3b" stroke-width="2"/><text x="24" y="21" font-family="Arial, sans-serif" font-size="4" font-weight="900" fill="%23002277" text-anchor="middle" letter-spacing="0.5">NEYMAR JR</text><text x="24" y="36" font-family="Arial Black, sans-serif" font-size="14" font-weight="900" fill="%23002277" text-anchor="middle">10</text><circle cx="20" cy="7" r="0.6" fill="%23009c3b"/><circle cx="22" cy="6" r="0.6" fill="%23009c3b"/><circle cx="24" cy="5.5" r="0.6" fill="%23009c3b"/><circle cx="26" cy="6" r="0.6" fill="%23009c3b"/><circle cx="28" cy="7" r="0.6" fill="%23009c3b"/></g></svg>') 24 10, pointer !important;
+        }
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--dark-bg);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* --- INTRO VIDEO --- */
+        #video-intro {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* --- LOGIN & REGISTER --- */
+        #auth-container {
+            display: none;
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(10, 0, 0, 0.95)),
+                url('https://rr3---sn-bg0e6n7d.googlevideo.com/videoplayback?expire=1781287765&ei=9fYrar3BMtzT6dsPg9Cj8Ag&ip=104.239.17.38&id=o-AA7cxk3p_Pm5b4XdRrfX7nR4icPTaZCTIoZ3QOdzRhcI&itag=18&source=youtube&requiressl=yes&xpc=EgVo2aDSNQ%3D%3D&bui=ARmQxEXO1RPd_-WbDD69Shptnf0O54PG2lYpMggYlxTTxNhVntT-2tYDYtqkVm_byNO7Eu0ryVtvBPU2&spc=SQ-umuX5ZN5NqSJhC0KDaV7p_sC9C6ay_NGDbQTjysZVh_dLF7BehD4urohIpsW7te0&vprv=1&svpuc=1&mime=video%2Fmp4&rqh=1&cnr=14&ratebypass=yes&dur=128.220&lmt=1760856798569922&fexp=51565116,51565681&c=ANDROID&txp=6308224&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cxpc%2Cbui%2Cspc%2Cvprv%2Csvpuc%2Cmime%2Crqh%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AHEqNM4wRQIhAKwlUpwPLF8HKeOwahhJyqkpZT6Oh2rB_UOk3hcUKQs1AiA8MyanRZ-iOi2djudg9TVpKm_ErvHpg9kHfHboiq3nsw%3D%3D&rm=sn-4g5eyz76,sn-xhcg5uxa-8j2z7l&rrc=104,79&req_id=9db854027c71a3ee&cps=41&ipbypass=yes&redirect_counter=2&cms_redirect=yes&cmsv=e&met=1781266169,&mh=jZ&mip=201.31.70.194&mm=29&mn=sn-bg0e6n7d&ms=rdu&mt=1781265665&mv=m&mvi=3&pl=18&rms=rdu,au&lsparams=cps,ipbypass,met,mh,mip,mm,mn,ms,mv,mvi,pl,rms&lsig=APaTxxMwRAIgMLZzMZfM3cBt6DtqeeTSEWuM93BC2Z63T1aXwxq5y64CIAZVqAyZv6VOL7wDVtJaZhfRQRT-2z5vLriRm1eNNEKF');
+            background-size: cover;
+            background-position: center;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .auth-card {
+            background: rgba(10, 10, 10, 0.95);
+            padding: 40px;
+            border-top: 5px solid var(--vought-red);
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 0 20px rgba(211, 47, 47, 0.3);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-card::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: rgba(255, 0, 0, 0.6);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 1), 0 0 30px rgba(255, 0, 0, 0.8);
+            animation: scanline 3.5s linear infinite;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        /* ==========================================================================
+   CONFIGURAÇÃO DE FONTES - COPA DO MUNDO
+   ========================================================================== */
+
+        /* 1. Versão para TEXTOS comuns (Suporta minúsculas perfeitamente e sem esmagar) */
+        @font-face {
+            font-family: 'QatarCopa';
+            src: url('./fontes/Qatar2022Arabic-Medium.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* 2. Versão para TÍTULOS (Estilo marcante em caixa alta) */
+        @font-face {
+            font-family: 'QatarCopaTitulo';
+            src: url('./fontes/Qatar2022-Bold.woff2') format('woff2');
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        /* 3. Aplicação da fonte de leitura para o site inteiro */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'QatarCopa', 'Segoe UI', sans-serif;
+        }
+
+        /* 4. Aplicação da fonte estilizada APENAS nos títulos e números de destaque */
+        header h1,
+        header p,
+        .card h2,
+        .match-info h3,
+        .modal-content h3,
+        .stat-value {
+            font-family: 'QatarCopaTitulo', 'Arial Black', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        @keyframes scanline {
+            0% {
+                top: -10%;
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                top: 110%;
+                opacity: 0;
+            }
+        }
+
+        h1 {
+            color: var(--vought-red);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            background: #222;
+            border: 1px solid #444;
+            color: white;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--vought-red);
+            border: none;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background: #b71c1c;
+            transform: scale(1.02);
+        }
+
+        .toggle-link {
+            color: var(--vought-gold);
+            cursor: pointer;
+            display: block;
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+
+        /* --- MENSAGEM LUZ ESTRELA --- */
+        #starlight-message {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .starlight-box {
+            border: 2px solid #ffcc00;
+            padding: 40px;
+            background: #111;
+            max-width: 500px;
+            box-shadow: 0 0 30px rgba(255, 204, 0, 0.3);
+        }
+
+        .starlight-box h2 {
+            color: #ffcc00;
+            font-family: 'Permanent Marker', cursive;
+            margin-bottom: 20px;
+        }
+
+        /* --- DASHBOARD (SITE CONTEÚDO) --- */
+        #main-site {
+            display: none;
+            padding: 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background: rgba(0, 0, 0, 0.9);
+            border-bottom: 2px solid var(--vought-gold);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 40px 5%;
+        }
+
+        .leak-card {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            transition: 0.3s;
+            overflow: hidden;
+        }
+
+        .leak-card:hover {
+            border-color: var(--vought-red);
+        }
+
+        .leak-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .leak-content {
+            padding: 15px;
+        }
+
+        .leak-content h3 {
+            color: var(--vought-gold);
+            margin-bottom: 10px;
+        }
+
+        .tag {
+            background: var(--vought-red);
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 3px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Estilo para destacar os cards de memes */
+        .meme-card {
+            border: 2px solid #000000 !important;
+            transition: transform 0.3s ease;
+            min-height: 700px !important;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .meme-card:hover {
+            transform: translateY(-10px) rotate(-2deg) scale(1.05);
+            box-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .meme-card .tag {
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .meme-card img {
+            width: 100%;
+            height: 550px !important;
+            object-fit: contain !important;
+            background-color: #0b0b0b;
+            border-bottom: 2px solid #000000;
+        }
+
+        .meme-card .leak-content {
+            padding: 30px !important;
+            flex-grow: 1;
+        }
+
+        .btn-download {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            background-color: #ff0000;
+            color: #ffffff !important;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            font-family: sans-serif;
+            text-transform: uppercase;
+            border-radius: 5px;
+            border: none;
+            transition: 0.3s;
+        }
+
+        .btn-download:hover {
+            background-color: #ffffff;
+            color: #ff0000 !important;
+            transform: scale(1.02);
+        }
+
+        .memes-section-title {
+            width: 100%;
+            text-align: center;
+            padding: 50px 0 20px;
+            clear: both;
+        }
+
+        .memes-section-title h2 {
+            color: #ff0000;
+            font-size: 3.5rem;
+            margin: 0;
+            text-shadow: 2px 2px 0px #000;
+        }
+
+        .memes-section-title p {
+            color: #888;
+            font-size: 1.1rem;
+            margin-top: 5px;
+        }
+
+        /* --- ESTILO: LISTA DE ALVOS --- */
+        #hit-list {
+            background-image: url('https://www.transparenttextures.com/patterns/dark-matter.png');
+        }
+
+        .target-card {
+            transition: all 0.3s ease;
+            filter: sepia(0.3);
+        }
+
+        .target-card:hover {
+            filter: sepia(0);
+            transform: scale(1.02);
+            border-color: #ff0000 !important;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+
+        .threat-bar-fill {
+            animation: pulse-red 2s infinite;
+        }
+
+        @keyframes pulse-red {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* --- ANIMAÇÕES DIABÓLICAS (HACK VOUGHT) --- */
+        .glitch-text {
+            animation: text-flicker 3s linear infinite;
+        }
+
+        @keyframes text-flicker {
+
+            0%,
+            19.999%,
+            22%,
+            62.999%,
+            64%,
+            64.999%,
+            70%,
+            100% {
+                opacity: 1;
+                text-shadow: 3px 3px 0px #000, -3px 0px 0px rgba(255, 0, 0, 0.8), 3px 0px 0px rgba(0, 255, 255, 0.8);
+            }
+
+            20%,
+            21.999%,
+            63%,
+            63.999%,
+            65%,
+            69.999% {
+                opacity: 0.4;
+                text-shadow: 3px 3px 0px #000;
+                transform: rotate(-3deg) translate(-2px, 2px);
+            }
+
+            50% {
+                transform: rotate(-3deg) skew(10deg);
+            }
+        }
+
+        .vought-shop {
+            background: #f4f4f4;
+            color: #333;
+            padding: 60px 5%;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .product-card {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 20px;
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .product-price {
+            color: #d32f2f;
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .buy-btn {
+            background: #002d5a;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+
+        .buy-btn:hover {
+            background: #d32f2f;
+        }
+
+        .color-green {
+            color: #00ff00;
+        }
+
+        .color-red {
+            color: #ff0000;
+        }
+
+        .color-white {
+            color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="video-intro">
+        <video id="intro-vid" autoplay muted>
+            <source
+                src="https://rr4---sn-2obg05-ja.googlevideo.com/videoplayback?expire=1781287412&ei=lPUraoqyLLnWi9oP1s-I8AY&ip=82.29.236.239&id=o-AA-xBPJE4Xw49ZH3HM06z7CzlprsjxadZcwYMgsStfi0&itag=18&source=youtube&requiressl=yes&xpc=EgVo2aDSNQ%3D%3D&bui=ARmQxEVHF9cmEQNnC_Ts3ZNsskQdWZ6_zATeNsUfHFQIxj4C0Tv4O0VktnLr4NYVjpzQdw1KGdKoXFMV&spc=SQ-umi1wxp8Z5YMdNOQHfW4UIid2b63cFudcOh8CrMrkQLeV3jAr2r7N1FDbepnkMtc&vprv=1&svpuc=1&mime=video%2Fmp4&rqh=1&cnr=14&ratebypass=yes&dur=164.211&lmt=1775945080986659&fexp=51565115,51565682&c=ANDROID&txp=5538534&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cxpc%2Cbui%2Cspc%2Cvprv%2Csvpuc%2Cmime%2Crqh%2Ccnr%2Cratebypass%2Cdur%2Clmt&sig=AHEqNM4wRgIhAP4PoZ8QUQdYhrTPMN4VrJrikLvPdi8ej6BbX3YDGuo8AiEAz9twguvnmfMA6esk8AfN-ctbS-svD-l0lk4epLgvC_k%3D&rm=sn-c0qlk7e,sn-xhcg5uxa-8j2z76&rrc=104,79&req_id=d88b16ae153ca3ee&cps=380&ipbypass=yes&redirect_counter=2&cms_redirect=yes&cmsv=e&met=1781265822,&mh=-F&mip=201.31.70.194&mm=29&mn=sn-2obg05-ja&ms=rdu&mt=1781265430&mv=m&mvi=4&pl=18&rms=rdu,au&lsparams=cps,ipbypass,met,mh,mip,mm,mn,ms,mv,mvi,pl,rms&lsig=APaTxxMwRQIgXbVQzkJPSNMYbBMun_jW82XA0eCtijn3jQ_Sthc6jaICIQDwsZU0fXDa0LeONJBHjNe7SZlGmNSim-aa90pE8TzpHA%3D%3D"
+                type="video/mp4">
+        </video>
+        <button onclick="skipIntro()"
+            style="position:absolute; bottom:20px; right:20px; background:rgba(0,0,0,0.5); color:white; border:none; padding:10px; cursor:pointer; font-weight: bold;">PULAR
+            ABERTURA</button>
+    </div>
+
+    <div id="auth-container">
+        <video autoplay loop muted playsinline class="bg-video">
+            <source src="./img/videoplayback.mp4" type="video/mp4">
+            Seu navegador não suporta vídeos HTML5.
+        </video>
+        <div class="auth-card" id="login-form">
+
+            <div class="vought-badge" style="color: grey; font-size: 0.8rem; margin-bottom: 10px;">
+                ⚽ CENTRAL DA COPA • ACESSO DOS TORCEDORES
+            </div>
+            <h1>APITO INICIAL</h1>
+            <input type="text" id="log-email" placeholder="Digite seu e-mail de torcedor">
+            <input type="password" id="log-pass" placeholder="Senha da arquibancada">
+            <button class="btn" onclick="realizarLogin()">ENTRAR EM CAMPO</button>
+            <span class="toggle-link" onclick="toggleAuth()">
+                AINDA NÃO ESTÁ NA TORCIDA? VISTA A CAMISA AQUI
+            </span>
+        </div>
+
+        <div class="auth-card hidden" id="register-form">
+            <div class="vought-badge" style="color: grey; font-size: 0.8rem; margin-bottom: 10px;">
+                🌎 CENTRO DE INSCRIÇÕES DA COPA
+            </div>
+            <h1>VESTIR A CAMISA</h1>
+            <input type="text" id="reg-name" placeholder="Nome do craque">
+            <input type="email" id="reg-email" placeholder="E-mail do torcedor">
+            <input type="password" id="reg-pass" placeholder="Crie sua senha campeã">
+            <button class="btn" onclick="cadastrarUsuario()">GARANTIR MINHA VAGA</button>
+            <span class="toggle-link" onclick="toggleAuth()">
+                JÁ FAZ PARTE DA SELEÇÃO? ENTRE EM CAMPO
+            </span>
+        </div>
+
+
+        <div id="starlight-message">
+            <div class="starlight-box">
+                <h2>TRANSMISSÃO INTERCEPTADA</h2>
+                <p style="margin-bottom: 20px; color: #ddd; font-style: italic;">"Eles estão mentindo para você. A
+                    Vought
+                    não é quem diz ser. Cuidado com o que você acessa aqui dentro. Não confie no Capitão Pátria."
+                    <br><br>-
+                    Luz Estrela</p>
+                <button class="btn" onclick="entrarNoSistema()" style="background: #ffcc00; color: #000;">PROSSEGUIR
+                    PARA O
+                    SISTEMA</button>
+            </div>
+        </div>
+
+        <div id="main-site">
+            <nav>
+                <h2>JORNAL THE BOYS</h2>
+                <div class="profile-container" style="position: relative;">
+                    <button class="profile-btn" onclick="toggleProfile()"
+                        style="background: transparent; border: none; color: white; cursor: pointer; display: flex; align-items: center; gap: 10px;">
+                        <img src="https://i.pinimg.com/736x/87/42/fa/8742fa88e7b30dbf2cfec320573e04ee.jpg" alt="Avatar"
+                            class="profile-avatar"
+                            style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--vought-gold);">
+                        <span id="welcome-text">RECRUTA_073</span>
+                        <span class="seta">▼</span>
+                    </button>
+                    <div id="profile-menu" class="profile-menu hidden"
+                        style="position: absolute; right: 0; top: 50px; background: #111; border: 1px solid #333; padding: 15px; width: 200px;">
+                        <div class="profile-header">
+                            <span class="vought-badge" style="font-size: 0.7rem; color: gray;">DOSSIÊ
+                                CONFIDENCIAL</span>
+                            <h4>STATUS: <span class="color-green">ATIVO</span></h4>
+                        </div>
+                        <ul class="profile-links"
+                            style="list-style: none; padding-top: 10px; display: flex; flex-direction: column; gap: 10px;">
+                            <li><a href="#" style="color: white; text-decoration: none;">[ ] MEU DOSSIÊ</a></li>
+                            <li><a href="#" style="color: white; text-decoration: none;">[ ] NÍVEL DE AMEAÇA</a></li>
+                            <li><a href="#" style="color: white; text-decoration: none;">[ ] INJETAR V-24</a></li>
+                            <hr style="border-color: #333; margin: 10px 0;">
+                            <li><a href="#" class="color-red" onclick="sair(event)" style="text-decoration: none;">[X]
+                                    ABORTAR MISSÃO</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <header style="text-align:center; padding:50px 5%;">
+                <h1 style="font-size: 3rem;" class="glitch-text">VAZAMENTOS DA 5ª TEMPORADA (2026)</h1>
+                <p style="color: var(--vought-gold)">Tudo o que a Vought não quer que você saiba.</p>
+            </header>
+
+            <div class="grid">
+                <div class="leak-card">
+                    <img src="./img/soldier_boy.webp" alt="Soldier Boy">
+                    <div class="leak-content">
+                        <span class="tag">TEORIA</span>
+                        <h3>O Retorno de Soldier Boy</h3>
+                        <p>Rumores indicam que Capitão Pátria perderá seus poderes. E lutará com Bruto mano a mano.</p>
+                    </div>
+                </div>
+
+                <div class="leak-card">
+                    <img src="./img/os_garotos.jpg" alt="Theboys">
+                    <div class="leak-content">
+                        <span class="tag">VAZAMENTO</span>
+                        <h3>O Destino dos The Boys</h3>
+                        <p>Supostos títulos vazaram, com destaque para o penúltimo episódio chamado "O Francês, a Fêmea
+                            e o
+                            Homem Chamado Leitinho", sugerindo um arco trágico para o grupo.</p>
+                    </div>
+                </div>
+
+                <div class="leak-card">
+                    <img src="./img/ryan.jpg" alt="Ryanpatria">
+                    <div class="leak-content">
+                        <span class="tag">VAZAMENTO</span>
+                        <h3>Ryan e Pátria</h3>
+                        <p>A série sugere que o Capitão Pátria está perdendo força, com Ryan surgindo como um substituto
+                            mais poderoso.</p>
+                    </div>
+                </div>
+
+                <div class="leak-card">
+                    <img src="./img/soldier_boy_virus.avif" alt="Virus">
+                    <div class="leak-content">
+                        <span class="tag">VAZAMENTO</span>
+                        <h3>Soldier Boy Vírus</h3>
+                        <p> Confirmado como um jogador chave, ele está vivo e sua imunidade ao vírus que mata Supes é
+                            fundamental para a trama.</p>
+                    </div>
+                </div>
+            </div>
+
+            <section id="hit-list" style="padding: 60px 5%; background: #121212; border-bottom: 5px solid #333;">
+                <h1
+                    style="color: #ff0000; text-align: center; margin-bottom: 40px; font-family: 'Permanent Marker', cursive;">
+                    ALVOS PRIORITÁRIOS [LISTA DO BRUTO]
+                </h1>
+
+                <div class="grid"
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; align-items: stretch;">
+                    <div class="leak-card target-card"
+                        style="border: 2px solid #444; background: #1a1a1a; display: flex; flex-direction: column; height: 100%; position: relative; overflow: hidden;">
+                        <div
+                            style="position: absolute; top: 10px; left: 10px; background: #d32f2f; color: white; padding: 5px 15px; font-weight: bold; transform: rotate(-5deg); z-index: 10; font-family: 'Permanent Marker', cursive; font-size: 1.2rem; letter-spacing: 2px; box-shadow: 3px 3px 0px black; border: 2px solid #b71c1c;">
+                            ELIMINAR</div>
+                        <img src="./img-alvos/Homeleander.jpeg" alt="Capitão Pátria"
+                            style="width: 100%; height: 350px; object-fit: cover; object-position: center; filter: grayscale(100%) contrast(150%); border-bottom: 2px solid #444;">
+                        <div class="leak-content"
+                            style="padding: 20px; flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
+                            <div>
+                                <h3 style="color: #fff; text-transform: uppercase;">Capitão Pátria</h3>
+                                <p style="color: #bbb; margin-top: 10px;">
+                                    <strong>STATUS:</strong> Ativo (Vought Tower)<br>
+                                    <strong>FRAQUEZA:</strong> Bebê Chorão, Ryan, leite materno.<br>
+                                    <strong>NOTA:</strong> Não enfrentar sozinho. Requer o vírus ou Soldier Boy.
+                                </p>
+                            </div>
+                            <div style="margin-top: 15px;">
+                                <label style="color: #ff0000;">NÍVEL DE AMEAÇA:</label>
+                                <div
+                                    style="background: #000; height: 12px; width: 100%; border: 1px solid #333; margin-top: 5px;">
+                                    <div class="threat-bar-fill"
+                                        style="background: linear-gradient(90deg, #ff0000, #990000); width: 100%; height: 100%;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="leak-card target-card"
+                        style="border: 2px solid #444; background: #1a1a1a; display: flex; flex-direction: column; height: 100%; overflow: hidden;">
+                        <img src="./img-alvos/Profundo.jpeg" alt="The Deep"
+                            style="width: 100%; height: 350px; object-fit: cover; object-position: center; filter: grayscale(100%); border-bottom: 2px solid #444;">
+                        <div class="leak-content"
+                            style="padding: 20px; flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
+                            <div>
+                                <h3 style="color: #fff; text-transform: uppercase;">The Deep (Profundo)</h3>
+                                <p style="color: #bbb; margin-top: 10px;">
+                                    <strong>STATUS:</strong> No Sete (Membro Inútil)<br>
+                                    <strong>FRAQUEZA:</strong> Brânquias expostas, fetiche polvos, baixa autoestima.<br>
+                                    <strong>NOTA:</strong> Alvo fácil. Pode ser usado como informante se você oferecer
+                                    certas coisas 🐙.
+                                </p>
+                            </div>
+                            <div style="margin-top: 15px;">
+                                <label style="font-size: 0.8rem; color: #ffcc00; font-weight: bold;">NÍVEL DE
+                                    AMEAÇA:</label>
+                                <div
+                                    style="background: #000; height: 12px; width: 100%; border: 1px solid #333; margin-top: 5px;">
+                                    <div style="background: #ffcc00; width: 30%; height: 100%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="leak-card target-card"
+                        style="border: 2px solid #444; background: #1a1a1a; display: flex; flex-direction: column; height: 100%; overflow: hidden; position: relative;">
+                        <div
+                            style="position: absolute; top: 10px; left: 10px; background: #ff4500; color: white; padding: 5px 15px; font-weight: bold; transform: rotate(-5deg); z-index: 10; font-family: 'Permanent Marker', cursive; font-size: 1.2rem; letter-spacing: 2px; box-shadow: 3px 3px 0px black; border: 2px solid #cc3700;">
+                            ARMA / ALVO</div>
+                        <img src="./img-alvos/soldier.webp" alt="Soldier Boy"
+                            style="display: block; margin: 0 auto; width: 100%; height: 350px; object-fit: cover; object-position: center; filter: grayscale(100%); border-bottom: 2px solid #444;">
+                        <div class="leak-content"
+                            style="padding: 20px; flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
+                            <div>
+                                <h3 style="color: #fff; text-transform: uppercase;">Soldier Boy</h3>
+                                <p style="color: #bbb; font-size: 0.9rem; margin-top: 10px;">
+                                    <strong>STATUS:</strong> Novamente foi descongelado pelo Capitão Pátria<br>
+                                    <strong>FRAQUEZA:</strong> O grande babaca, PTSD (Música russa), Ego inflado.<br>
+                                    <strong>NOTA:</strong> Imune ao Vírus Godolkin. Sua radiação frita o Composto V.
+                                    Evitar
+                                    combate corpo a corpo a todo custo.
+                                </p>
+                            </div>
+                            <div style="margin-top: 15px;">
+                                <label style="color: #ff4500; font-weight: bold;">NÍVEL DE AMEAÇA:</label>
+                                <div
+                                    style="background: #000; height: 12px; width: 100%; border: 1px solid #333; margin-top: 5px;">
+                                    <div
+                                        style="background: linear-gradient(90deg, #ff4500, #ff0000); width: 100%; height: 100%; box-shadow: 0 0 10px rgba(255, 69, 0, 0.5);">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="memes-underground">
+                <div class="memes-section-title">
+                    <h2>MEMES DIABÓLICOS</h2>
+                    <p>Arquivos roubados do computador do Profundo 🦈</p>
+                </div>
+                <div class="grid">
+                    <div class="leak-card meme-card">
+                        <img src="./img-memes/Season 5 Bubbles GIF.gif" alt="Meme Animado">
+                        <div class="leak-content">
+                            <span class="tag" style="background: #00ff00; color: black;">MEME</span>
+                            <h3>Quando você tenta parecer normal…</h3>
+                            <p>Homelander segurando o desastre nuclear nível intestino.</p>
+                            <a href="./img-memes/Season 5 Bubbles GIF.gif" download="meme_homelander_animado.gif"
+                                class="btn-download">BAIXAR MEME [VOUGHT CLOUD]</a>
+                        </div>
+                    </div>
+
+                    <div class="leak-card meme-card">
+                        <img src="./img-memes/The Boys Homelander GIF.gif" alt="Meme Animado">
+                        <div class="leak-content">
+                            <span class="tag" style="background: #00ff00; color: black;">MEME</span>
+                            <h3>Crítica de cinema absoluta</h3>
+                            <p>Se o Homelander disse que é cinema, é cinema.</p>
+                            <a href="./img-memes/cinema.gif" download="meme_cinema_animado.gif"
+                                class="btn-download">BAIXAR
+                                MEME [VOUGHT CLOUD]</a>
+                        </div>
+                    </div>
+
+                    <div class="leak-card meme-card">
+                        <img src="./img-memes/Excited Season 2 GIF by The Boys.gif" alt="Meme Animado">
+                        <div class="leak-content">
+                            <span class="tag" style="background: #00ff00; color: black;">MEME</span>
+                            <h3>Hughie surtando de alegria</h3>
+                            <p>Hughie não consegue conter as lágrimas de felicidade após descriptografar os arquivos
+                                confidenciais do sapatão.</p>
+                            <a href="./img-memes/Excited Season 2 GIF by The Boys.gif"
+                                download="meme_hughie_animado.gif" class="btn-download">BAIXAR MEME [VOUGHT CLOUD]</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="vought-shop">
+                <div class="memes-section-title">
+                    <h2 style="color: var(--vought-blue);">LOJA OFICIAL VOUGHT</h2>
+                    <p>Adquira itens licenciados e colabore com a estabilidade dos Super-Heróis no país</p>
+                </div>
+                <div class="shop-grid">
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1550572017-edd951b55104?w=500&auto=format&fit=crop&q=60"
+                            alt="Composto V" style="width:100%; height:180px; object-fit:cover; margin-bottom:15px;">
+                        <h3>Composto V (Dose Padrão)</h3>
+                        <p>Injeção direta para despertar os seus talentos ocultos latentes. Uso laboratorial rigoroso.
+                        </p>
+                        <div class="product-price">$ 4.500.000</div>
+                        <button class="buy-btn"
+                            onclick="alert('Pedido enviado para aprovação da Diretoria Executiva da Vought.')">ADQUIRIR
+                            AGORA</button>
+                    </div>
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?w=500&auto=format&fit=crop&q=60"
+                            alt="Luz de LED" style="width:100%; height:180px; object-fit:cover; margin-bottom:15px;">
+                        <h3>Estatueta Capitão Pátria Ouro</h3>
+                        <p>Edição Suprema e Limitada de colecionador. Acabamento banhado a ouro 24k com sensores de
+                            laser.</p>
+                        <div class="product-price">$ 1.499,90</div>
+                        <button class="buy-btn"
+                            onclick="alert('Item adicionado ao seu carrinho de suprimentos!')">ADQUIRIR AGORA</button>
+                    </div>
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=500&auto=format&fit=crop&q=60"
+                            alt="Bebida Energetica"
+                            style="width:100%; height:180px; object-fit:cover; margin-bottom:15px;">
+                        <h3>Refrigerante Vought Energy®</h3>
+                        <p>Beba o sabor autêntico do Orgulho Americano. Sabor Maçã Explosiva e Composto V Diet.</p>
+                        <div class="product-price">$ 4,99</div>
+                        <button class="buy-btn"
+                            onclick="alert('Item adicionado ao seu carrinho de suprimentos!')">ADQUIRIR AGORA</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <script>
+            function skipIntro() {
+                const intro = document.getElementById('video-intro');
+                const video = document.getElementById('intro-vid');
+                if (video) video.pause();
+                intro.style.display = 'none';
+                document.getElementById('auth-container').style.display = 'flex';
+            }
+
+            function toggleAuth() {
+                const loginForm = document.getElementById('login-form');
+                const registerForm = document.getElementById('register-form');
+                loginForm.classList.toggle('hidden');
+                registerForm.classList.toggle('hidden');
+            }
+
+            function realizarLogin() {
+                const email = document.getElementById('log-email').value;
+                const pass = document.getElementById('log-pass').value;
+                if (email.trim() === "" || pass.trim() === "") {
+                    alert("Identifique-se corretamente antes de acessar os servidores.");
+                    return;
+                }
+                document.getElementById('auth-container').style.display = 'none';
+                document.getElementById('starlight-message').style.display = 'flex';
+            }
+
+            function cadastrarUsuario() {
+                const name = document.getElementById('reg-name').value;
+                if (name.trim() === "") {
+                    alert("Insira seu codinome de cobaia para a injeção.");
+                    return;
+                }
+                alert("Composto V injetado com sucesso! Se você sobreviver, faça o login.");
+                toggleAuth();
+            }
+
+            function entrarNoSistema() {
+                document.getElementById('starlight-message').style.display = 'none';
+                document.getElementById('main-site').style.display = 'block';
+            }
+
+            function toggleProfile() {
+                const menu = document.getElementById('profile-menu');
+                menu.classList.toggle('hidden');
+            }
+
+            function sair(event) {
+                event.preventDefault();
+                document.getElementById('main-site').style.display = 'none';
+                document.getElementById('video-intro').style.display = 'flex';
+                const video = document.getElementById('intro-vid');
+                if (video) {
+                    video.currentTime = 0;
+                    video.play();
+                }
+            }
+
+            // Fechar dropdown do dossiê caso clique do lado de fora do botão do perfil
+            window.onclick = function (event) {
+                if (!event.target.matches('.profile-btn') && !event.target.matches('.profile-avatar') && !event.target.matches('.seta') && !event.target.matches('#welcome-text')) {
+                    const menu = document.getElementById('profile-menu');
+                    if (menu && !menu.classList.contains('hidden')) {
+                        menu.classList.add('hidden');
+                    }
+                }
+            }
+        </script>
+</body>
+
+</html>

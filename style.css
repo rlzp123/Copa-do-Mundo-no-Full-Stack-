@@ -1,0 +1,838 @@
+   @import url('https://fonts.googleapis.com/css2?family=BBH+Bogle&display=swap');
+     
+        :root {
+            --vought-blue: #002d5a;
+            --vought-red: #d32f2f;
+            --vought-gold: #ffc107;
+            --dark-bg: #0a0a0a;
+            font-family: "BBH Bogle", sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--dark-bg);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* --- INTRO VIDEO --- */
+        #video-intro {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+       /* --- LOGIN & REGISTER (TEMA THE BOYS) --- */
+        #auth-container {
+            display: none;
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(10, 0, 0, 0.95)),
+                url('https://images.alphacoders.com/131/1310151.jpeg');
+            background-size: cover;
+            background-position: center;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .auth-card {
+            background: #0a0a0a;
+            padding: 40px;
+            border: 2px solid #333;
+            border-top: 6px solid var(--vought-red);
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 0 30px rgba(211, 47, 47, 0.4), inset 0 0 20px rgba(0,0,0,1);
+            text-align: center;
+            position: relative;
+            /* Textura de grade de segurança no fundo do card */
+            background-image: repeating-linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%, #111), repeating-linear-gradient(45deg, #111 25%, #0a0a0a 25%, #0a0a0a 75%, #111 75%, #111);
+            background-position: 0 0, 2px 2px;
+            background-size: 4px 4px;
+        }
+
+        .vought-badge {
+            color: #666;
+            font-size: 0.75rem;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+
+        .auth-card h1 {
+            color: var(--vought-red);
+            margin-bottom: 25px;
+            text-shadow: 3px 3px 0px #000;
+            transform: rotate(-3deg); /* Deixa o título torto igual ao 'ELIMINAR' */
+            letter-spacing: 2px;
+        }
+
+        .auth-card input {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            background: #151515;
+            border: 1px solid #444;
+            color: white;
+            transition: 0.3s;
+        }
+
+        .auth-card input:focus {
+            outline: none;
+            border-color: var(--vought-red);
+            box-shadow: 0 0 10px rgba(211, 47, 47, 0.5);
+            background: #000;
+        }
+
+        .auth-card .btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--vought-red);
+            border: 2px solid #8b0000;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 15px;
+            text-transform: uppercase;
+            box-shadow: 4px 4px 0px #000; /* Sombra dura igual aos cards */
+        }
+
+        .auth-card .btn:hover {
+            background: #ff0000;
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px #000;
+        }
+
+        .auth-card .btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0px #000;
+        }
+
+        .toggle-link {
+            color: var(--vought-gold);
+            cursor: pointer;
+            display: block;
+            margin-top: 20px;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+        .toggle-link:hover {
+            color: white;
+        }
+
+        /* --- DASHBOARD (SITE CONTEÚDO) --- */
+        #main-site {
+            display: none;
+            padding: 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background: rgba(0, 0, 0, 0.9);
+            border-bottom: 2px solid var(--vought-gold);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 40px 5%;
+        }
+
+        .leak-card {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            transition: 0.3s;
+            overflow: hidden;
+        }
+
+        .leak-card:hover {
+            border-color: var(--vought-red);
+        }
+
+        .leak-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .leak-content {
+            padding: 15px;
+        }
+
+        .leak-content h3 {
+            color: var(--vought-gold);
+            margin-bottom: 10px;
+        }
+
+        .tag {
+            background: var(--vought-red);
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 3px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Estilo para destacar os cards de memes */
+.meme-card {
+    border: 2px solid #000000 !important; 
+    transition: transform 0.3s ease;
+}
+
+.meme-card:hover {
+    transform: rotate(-2deg) scale(1.05); 
+}
+
+.meme-card .tag {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+
+/* Aumenta o "quadrado" (container) onde a foto do meme fica */
+.meme-card {
+    min-height: 700px !important; /* Aumenta o tamanho total do card */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Área específica da imagem - o "quadrado" da foto */
+.meme-card img {
+    width: 100%;
+    height: 550px !important;    /* Força o quadrado da foto a ser bem alto */
+    object-fit: contain !important; /* Garante que a foto apareça toda */
+    background-color: #0b0b0b;   /* Fundo levemente diferente para destacar o quadrado */
+    border-bottom: 2px solid #000000; /* Linha neon para marcar o fim da foto */
+}
+
+/* Espaçamento do texto abaixo da foto */
+.meme-card .leak-content {
+    padding: 30px !important;
+    flex-grow: 1;
+}
+
+
+/* Local onde você muda a cor do botão de baixar */
+.btn-download {
+    display: block;               /* Faz virar um bloco/botão */
+    width: 100%;                  /* Ocupa a largura total do card */
+    padding: 15px;                /* Altura interna do botão */
+    margin-top: 20px;             /* Espaço entre o texto e o botão */
+    color: #000000 !important;;             
+    
+    background-color: #ff0000;    /* << MUDAR COR DE FUNDO AQUI (Ex: Vermelho) */
+    color: #ffffff;               /* << MUDAR COR DA FONTE AQUI (Branco) */
+    
+    text-align: center;           /* Centraliza o texto */
+    text-decoration: none;        /* Remove o sublinhado azul */
+    font-weight: bold;            /* Deixa a letra grossa */
+    font-family: sans-serif;      /* Fonte padrão limpa */
+    text-transform: uppercase;    /* Tudo em maiúsculo */
+    border-radius: 5px;           /* Arredonda os cantos */
+    border: none;                 /* Remove bordas estranhas */
+    transition: 0.3s;             /* Efeito suave ao passar o mouse */
+}
+
+/* Cor quando você passa o mouse por cima */
+.btn-download:hover {
+    background-color: #ffffff;    /* Um tom mais escuro quando foca */
+    color: white;
+    transform: scale(1.02);      /* Dá um leve aumento */
+}
+
+
+.meme-card:hover {
+    transform: translateY(-10px); /* O card sobe 10 pixels */
+    box-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000; /* Cria um brilho vermelho intenso */
+    transition: all 0.4s ease; /* Deixa o movimento suave */
+    cursor: pointer;
+}
+
+
+
+
+
+/* Estilo para desbugar o título dos memes */
+.memes-section-title {
+    width: 100%;             /* Ocupa a tela toda */
+    text-align: center;      /* Centraliza o texto */
+    padding: 50px 0 20px;    /* Dá espaço em cima e embaixo */
+    clear: both;             /* Garante que nada fique flutuando do lado */
+}
+
+.memes-section-title h2 {
+    color: #ff0000;          /* Vermelho */
+    font-size: 3.5rem;
+    margin: 0;
+    text-shadow: 2px 2px 0px #000;
+}
+
+.memes-section-title p {
+    color: #888;
+    font-size: 1.1rem;
+    margin-top: 5px;
+}
+
+/* Garante que o grid de memes não quebre */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    padding: 20px;
+    align-items: start;      /* Alinha os cards pelo topo */
+}
+
+
+
+
+
+
+
+/* --- ESTILO: LISTA DE ALVOS --- */
+#hit-list {
+    background-image: url('https://www.transparenttextures.com/patterns/dark-matter.png'); /* Textura de sujeira */
+}
+
+.target-card {
+    transition: all 0.3s ease;
+    filter: sepia(0.3); /* Deixa a foto com aspecto de papel velho */
+}
+
+.target-card:hover {
+    filter: sepia(0);
+    transform: scale(1.02);
+    border-color: #ff0000 !important;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+}
+
+/* Animação para o carimbo de ELIMINAR */
+.target-card div[style*="background: red"] {
+    font-family: 'Permanent Marker', cursive;
+    box-shadow: 2px 2px 0px black;
+}
+
+/* Barra de progresso de ameaça animada */
+.threat-bar-fill {
+    animation: pulse-red 2s infinite;
+}
+
+@keyframes pulse-red {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+/* --- ESTILO: VOUGHT SHOP --- */
+.vought-shop {
+    background-color: #ffffff !important;
+    color: #1a1a1a !important;
+}
+
+.product-card {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 25px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.product-card:hover {
+    box-shadow: 0 15px 35px rgba(0, 45, 90, 0.15);
+    border-color: #002d5a;
+}
+
+.product-card img {
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover img {
+    transform: scale(1.1); /* Dá um zoom no produto ao passar o mouse */
+}
+
+.buy-btn {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.85rem;
+    border-radius: 50px !important; /* Botão arredondado moderno */
+    box-shadow: 0 4px 15px rgba(0, 45, 90, 0.3);
+}
+
+.buy-btn:hover {
+    background: #d32f2f !important;
+    box-shadow: 0 6px 20px rgba(211, 47, 47, 0.4);
+}
+
+
+body {
+            background: var(--dark-bg);
+            color: white;
+            overflow-x: hidden;
+            /* ADICIONE ESTA LINHA ABAIXO */
+            cursor: crosshair; 
+        }
+        
+        /* Adicione isso também para manter a mira nos botões e links */
+        a, button, .leak-card {
+            cursor: crosshair !important;
+        }
+
+
+        /* --- TEXTO CENSURADO --- */
+        .censurado {
+            background-color: #000;
+            color: #000; /* Esconde a letra deixando da cor do fundo */
+            padding: 0 5px;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .censurado:hover {
+            color: #ff0000; /* Revela o texto em vermelho ao passar o mouse */
+            background-color: #222;
+        }
+       /* --- CURSOR DE COMPOSTO V (ESTILO CILINDRO REAL) --- */
+        body {
+            background: var(--dark-bg);
+            color: white;
+            overflow-x: hidden;
+            
+            /* Frasco Cilíndrico Azul (Composto V) com Tampa e Rótulo Branco */
+            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Crect x='11' y='2' width='10' height='6' rx='2' fill='%23d4d4d4' stroke='%23000' stroke-width='1'/%3E%3Crect x='10' y='8' width='12' height='22' rx='3' fill='%2300bfff' stroke='%23000' stroke-width='1'/%3E%3Crect x='10' y='12' width='12' height='12' fill='%23ffffff'/%3E%3Cpath d='M12 15 L16 20 L20 15' stroke='%23002d5a' stroke-width='1.5' fill='none'/%3E%3Cpath d='M12 22 L20 22' stroke='%23333' stroke-width='1'/%3E%3C/svg%3E") 16 2, auto;
+        }
+
+        /* Reação ao Clicar (Muda o líquido para V-24 Temporário Verde) */
+        body:active {
+            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Crect x='11' y='2' width='10' height='6' rx='2' fill='%23d4d4d4' stroke='%23000' stroke-width='1'/%3E%3Crect x='10' y='8' width='12' height='22' rx='3' fill='%2339ff14' stroke='%23000' stroke-width='1'/%3E%3Crect x='10' y='12' width='12' height='12' fill='%23ffffff'/%3E%3Cpath d='M12 15 L16 20 L20 15' stroke='%23002d5a' stroke-width='1.5' fill='none'/%3E%3Cpath d='M12 22 L20 22' stroke='%23333' stroke-width='1'/%3E%3C/svg%3E") 16 2, auto !important;
+        }
+
+        /* Garante que o frasco continue aparecendo quando passar por cima de botões e links */
+        a, button, input, .leak-card, span {
+            cursor: inherit !important;
+        }
+
+        /* --- TELA DE HACKEAMENTO DO BRUTO --- */
+        #hack-screen {
+            background-color: #050505;
+            /* Efeito de linhas de monitor antigo (Scanlines) */
+            background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(10, 41, 10, 0.2) 3px, rgba(10, 41, 10, 0.2) 3px);
+            z-index: 9999;
+            padding: 40px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.3rem;
+        }
+
+        .hack-line {
+            margin-bottom: 20px;
+            text-shadow: 0 0 8px currentColor; /* Efeito de neon brilhante */
+            border-right: 12px solid; /* Cria o quadradinho piscando no final da frase */
+            padding-right: 8px;
+            width: fit-content;
+            animation: blink-cursor 0.6s step-end infinite;
+        }
+
+        /* Cores das linhas */
+        .color-green { color: #39ff14; }
+        .color-red { color: #ff0000; }
+        .color-white { color: #ffffff; }
+
+        /* Animação do cursor piscando */
+        @keyframes blink-cursor {
+            from, to { border-color: transparent; }
+            50% { border-color: currentColor; }
+        }
+
+
+
+        /* Container da direita na Nav */
+.nav-right {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* O Gatilho do Perfil */
+.profile-trigger {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 5px 15px;
+    border: 1px solid transparent;
+    transition: 0.3s;
+    cursor: inherit !important; /* Mantém o frasco do Composto V */
+}
+
+.profile-trigger:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--vought-red);
+}
+
+.profile-info {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+}
+
+#welcome-text {
+    font-weight: bold;
+    color: white;
+    font-size: 1rem;
+}
+
+.user-status {
+    font-size: 0.65rem;
+    color: var(--vought-gold);
+    letter-spacing: 1px;
+}
+
+/* Avatar com Efeito */
+.profile-avatar {
+    position: relative;
+    width: 45px;
+    height: 45px;
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px; /* Quadrado levemente arredondado estilo ID Card */
+    border: 2px solid #444;
+    object-fit: cover;
+}
+
+.profile-trigger:hover .profile-avatar img {
+    border-color: var(--vought-red);
+    box-shadow: 0 0 10px rgba(211, 47, 47, 0.8);
+}
+
+/* Menu Dropdown */
+.user-menu-dropdown {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 220px;
+    background: #0a0a0a;
+    border: 2px solid #333;
+    border-top: 4px solid var(--vought-red);
+    box-shadow: 10px 10px 0px #000;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+}
+
+.menu-header {
+    padding: 5px 15px;
+    font-size: 0.7rem;
+    color: #666;
+    border-bottom: 1px solid #222;
+    margin-bottom: 5px;
+}
+
+.user-menu-dropdown a {
+    padding: 10px 20px;
+    color: #ccc;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: 0.2s;
+}
+
+.user-menu-dropdown a:hover {
+    background: var(--vought-red);
+    color: white;
+    padding-left: 25px; /* Efeito de deslize */
+}
+
+.logout-btn {
+    padding: 10px 20px;
+    background: none;
+    border: none;
+    color: #ff4444;
+    text-align: left;
+    font-weight: bold;
+    cursor: inherit !important;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+.logout-btn:hover {
+    background: #1a1a1a;
+    color: white;
+}
+
+/* Ajuste da Nav para alinhar tudo no centro verticalmente */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Alinha o logo e o perfil na mesma linha */
+    padding: 10px 5%;
+    background: rgba(0, 0, 0, 0.95);
+    border-bottom: 2px solid var(--vought-gold);
+    height: 80px; /* Altura fixa para evitar pulos na tela */
+}
+
+.nav-right {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.profile-trigger {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: inherit !important;
+    padding: 5px;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+}
+
+#welcome-text {
+    font-family: "BBH Bogle", sans-serif;
+    font-weight: 900;
+    font-size: 1.1rem;
+    color: white;
+    line-height: 1;
+}
+
+.user-status {
+    font-size: 0.7rem;
+    color: var(--vought-gold);
+    font-weight: bold;
+    margin-top: 4px;
+}
+
+.profile-avatar {
+    width: 50px;
+    height: 50px;
+    border: 2px solid #333;
+    background: #111; /* Fundo escuro se a imagem falhar */
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block; /* Remove espaços vazios abaixo da imagem */
+}
+
+/* Efeito de brilho ao passar o mouse no perfil todo */
+.profile-trigger:hover .profile-avatar {
+    border-color: var(--vought-red);
+    box-shadow: 0 0 15px rgba(211, 47, 47, 0.7);
+}
+/* --- MENU DE PERFIL TEMA THE BOYS --- */
+        .profile-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .profile-btn {
+            background: transparent;
+            border: 1px solid var(--vought-red);
+            color: white;
+            padding: 8px 15px;
+            font-family: "BBH Bogle", sans-serif;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+            cursor: inherit; /* Puxa o seu cursor da mira/frasco de composto V */
+        }
+
+        .profile-btn:hover {
+            background: rgba(211, 47, 47, 0.1);
+            box-shadow: 0 0 10px rgba(211, 47, 47, 0.5);
+        }
+
+        .profile-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 2px;
+            border: 1px solid #444;
+            object-fit: cover;
+            filter: grayscale(100%); /* Deixa a foto preta e branca */
+            transition: 0.3s;
+        }
+
+        .profile-btn:hover .profile-avatar {
+            filter: grayscale(0%);
+            border-color: var(--vought-red);
+        }
+
+        .seta {
+            font-size: 0.7rem;
+            color: var(--vought-red);
+        }
+
+        /* Dropdown Escondido */
+        .profile-menu {
+            position: absolute;
+            top: 120%;
+            right: 0;
+            width: 220px;
+            background: #0a0a0a;
+            border: 2px solid #333;
+            border-top: 4px solid var(--vought-red);
+            box-shadow: 4px 4px 0px #000;
+            display: none; /* Escondido por padrão */
+            flex-direction: column;
+            z-index: 1000;
+            background-image: repeating-linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%, #111), repeating-linear-gradient(45deg, #111 25%, #0a0a0a 25%, #0a0a0a 75%, #111 75%, #111);
+            background-position: 0 0, 2px 2px;
+            background-size: 4px 4px;
+        }
+
+ /* Adicione transform-origin na classe principal se não tiver */
+        .profile-menu {
+            transform-origin: top;
+        }
+
+        /* Classe que o JS vai adicionar para mostrar o menu com a nova animação refinada */
+        .profile-menu.show {
+            display: flex; /* O JS ativa isso */
+            animation: smooth-slide-in 0.3s cubic-bezier(0.23, 1, 0.320, 1) forwards; /* Cubic bezier para suavidade extrema !! */
+        }
+
+        /* NOVA ANIMAÇÃO: Slide suave + Fade In (Elegant & Diabolical) */
+        @keyframes smooth-slide-in {
+            0% {
+                opacity: 0;
+                transform: translateY(-15px) scale(0.98); /* Começa mais alto e levemente menor */
+                filter: none;
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1); /* Finaliza na posição original */
+                /* Adiciona um toque sofisticado de brilho suave no final */
+                box-shadow: 4px 4px 0px #000, 0 0 10px rgba(211, 47, 47, 0.3);
+            }
+        }
+
+        .profile-header {
+            padding: 15px;
+            border-bottom: 1px solid #333;
+            background: #111;
+        }
+
+        .profile-header h4 {
+            margin-top: 5px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+        }
+
+        .profile-links {
+            list-style: none;
+            padding: 10px 0;
+        }
+
+        .profile-links li a {
+            display: block;
+            padding: 10px 15px;
+            color: #ccc;
+            text-decoration: none;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: 0.2s;
+            cursor: inherit;
+        }
+
+        .profile-links li a:hover {
+            background: #1a1a1a;
+            color: white;
+            padding-left: 20px; /* Efeito de empurrar o texto */
+            border-left: 3px solid var(--vought-red);
+        }
+
+        /* --- EFEITOS DO MENU FUNCIONAL --- */
+        
+        /* Efeito de Injeção de V-24 na tela toda */
+        body.v24-ativado {
+            box-shadow: inset 0 0 100px rgba(57, 255, 20, 0.15);
+            /* Trava o cursor no frasco verde permanentemente */
+            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Crect x='11' y='2' width='10' height='6' rx='2' fill='%23d4d4d4' stroke='%23000' stroke-width='1'/%3E%3Crect x='10' y='8' width='12' height='22' rx='3' fill='%2339ff14' stroke='%23000' stroke-width='1'/%3E%3Crect x='10' y='12' width='12' height='12' fill='%23ffffff'/%3E%3Cpath d='M12 15 L16 20 L20 15' stroke='%23002d5a' stroke-width='1.5' fill='none'/%3E%3Cpath d='M12 22 L20 22' stroke='%23333' stroke-width='1'/%3E%3C/svg%3E") 16 2, auto !important;
+        }
+
+        /* Efeito de alerta de ameaça */
+        @keyframes piscar-ameaca {
+            0% { box-shadow: inset 0 0 0px rgba(255, 0, 0, 0); }
+            50% { box-shadow: inset 0 0 150px rgba(255, 0, 0, 0.8); }
+            100% { box-shadow: inset 0 0 0px rgba(255, 0, 0, 0); }
+        }
+
+        .ameaca-detectada {
+            animation: piscar-ameaca 1s ease-in-out 3; /* Pisca 3 vezes */
+        }
+        
+        /* Estilo do Dossiê do Print */
+.vought-badge-small {
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    color: #666;
+    display: block;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+#dossie-menu {
+    background-color: #0a0a0a !important;
+    border: 1px solid #333 !important;
+    box-shadow: 10px 10px 0px #000 !important;
+}
+
+#dossie-menu a {
+    font-family: 'Courier New', Courier, monospace !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Efeito Visual de Injeção */
+.v24-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background: radial-gradient(circle, transparent 50%, rgba(57, 255, 20, 0.2) 100%);
+    z-index: 9999;
+    display: none;
+}
